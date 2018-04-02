@@ -4,14 +4,19 @@ let canvasWidth = 800;
 let canvasHeight = 600;
 //let canvasHeight = windowHeight;
 var table;
+var tableArrays;
 var tableArray;
 var list;
+
+var inkMap;
+
 var R = 150;
 var G = 150;
 var B = 150;
 var failedAttempts = 0;
 
-  function preload(){
+
+function preload(){
       readList();
 
       console.log("Total number of columns: " + table.getColumnCount())
@@ -23,21 +28,38 @@ function setup() {
   createCanvas(canvasWidth, canvasHeight);
   background(100);
 
-
   console.log("Total number of columns: " + table.getColumnCount())
   console.log("Total number of rows: " + table.getRowCount())
 
+  //Convert table to tableArrays
+    tableArrays = table.getArray();
+
+  //Loop through rows in array form(?)
+  console.log("Printing "+tableArrays.length+" arrays:")
+  console.log("Printing element [0, 0]: " + tableArrays[0][0])
+  console.log("Printing element [0, 1]: " + tableArrays[0][1])
+  console.log("Printing element [1, 0]: " + tableArrays[1][0])
+  console.log("Printing element [39, 0]: " + tableArrays[39][0])
+  for (let i = 0; i < tableArrays.length; i++) {
+    for(let j = 0; j < tableArrays[i].length; j++)
+      console.log("column "+j+": "+tableArrays[i][j]);
+  };
+
   //Convert table to array
-  var tableArray = table.getArray();
+  tableArray = table.getArray();
   list = tableArray[0];
+
+  //Read array into Map
+  readToMap();
 }
 
 function draw() {
   background(R, G, B);
 
-  textSize(20);
+
+  /*textSize(20);
   fill(255);
-  text("Remaining elements: " + list.length, 50, 350);
+  text("Remaining elements: " /*+ inkMap.size, 50, 350); */
   textSize(60);
   text(query, 50, canvasHeight/2 - 60, canvasWidth, canvasHeight);
   console.log(query)
@@ -76,11 +98,11 @@ function filterWords(){
 function nextCharacter(){
     let nextCharacter = randomCharacter();
 
-    console.log("Testing for " + nextCharacter);
+    /*console.log("Testing for " + nextCharacter);
     for(let i = 0; i < list.length; i++){
       console.log("Index " + i)
       console.log(list[i])
-    }
+    }*/
 
     //Check if there are more words in list
     if(list.length>1){
@@ -107,8 +129,15 @@ function nextCharacter(){
       }
     }
 
-    if(list.length===1)
+    if(list.length===1){
       query = list[0];
+      //Change background to ink colour
+      R = 0;
+      G = 0;
+      B = 0;
+
+    }
+
 
     //else(
       //Print remaining word
@@ -162,12 +191,32 @@ function randomCharacter(){
 }
 
 function readList(){
-  table = loadTable("assets/asd.csv", "csv")
+  /*table = loadTable("assets/asd.csv", "csv")
 
   console.log("Printing imported table")
   console.log("Total number of columns: " + table.getColumnCount())
   console.log("Total number of rows: " + table.getRowCount())
   for (var i = 0; i < table.length; i++) {
     console.log(table[i])
+  }*/
+  table = loadTable("assets/data.csv", "csv")
+  console.log("Total number of columns: " + table.getColumnCount())
+  console.log("Total number of rows: " + table.getRowCount())
+
+}
+
+//Reads array into map
+function readToMap(){
+  inkMap = new Map();
+
+  //Puts each record into map format
+  //key = ink name
+  //value = array or columns
+  for(let i = 0; i < tableArrays.length; ){
+    console.log("Setting map for " )
+    inkMap.set(tableArrays[i][1], tableArrays[i])
+    //Print map to test correct inserted
+    //console.log("key: "+tableArrays[i][1]+", "+ "value: "+inkMap.get(tableArrays[i][1]))
   }
+
 }
