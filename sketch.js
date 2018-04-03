@@ -50,15 +50,15 @@ function setup() {
   list = tableArray[0];
 
   //Read array into Map
-  readToMap();
+   readToMap();
 }
 
 function draw() {
   background(R, G, B);
 
-
-  /*textSize(20);
   fill(255);
+  /*textSize(20);
+
   text("Remaining elements: " /*+ inkMap.size, 50, 350); */
   textSize(60);
   text(query, 50, canvasHeight/2 - 60, canvasWidth, canvasHeight);
@@ -212,11 +212,12 @@ function readToMap(){
   //Puts each record into map format
   //key = ink name
   //value = array or columns
-  for(let i = 0; i < tableArrays.length; ){
+  console.log("TableArrays.length = " + tableArrays.length)
+  for(let i = 0; i < tableArrays.length; i++){
     console.log("Setting map for " )
     inkMap.set(tableArrays[i][1], tableArrays[i])
     //Print map to test correct inserted
-    //console.log("key: "+tableArrays[i][1]+", "+ "value: "+inkMap.get(tableArrays[i][1]))
+    console.log("key: "+tableArrays[i][1]+", "+ "value: "+inkMap.get(tableArrays[i][1]))
   }
 
 }
