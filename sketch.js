@@ -1,8 +1,6 @@
 let query = "";
-let canvasWidth = 800;
-//let canvasWidth = windowWidth;
-let canvasHeight = 600;
-//let canvasHeight = windowHeight;
+let canvasWidth = windowWidth;
+let canvasHeight = windowHeight;
 var table;
 var records;
 
