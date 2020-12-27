@@ -44,7 +44,7 @@ function draw() {
       //Print all possible outcomes in background whizz
       records.forEach(colour => {
             textSize(10);
-            text(records[i][1], random(20, canvasWidth- 50), random(20, canvasHeight-20) )
+            text(colour[1], random(20, canvasWidth- 50), random(20, canvasHeight-20) )
       })
 
         //Next chatacter
@@ -62,22 +62,22 @@ function draw() {
 
 //Remove words still in record that don't match the query
 function filterWordsRecords(){
-      records.forEach(colour => {
-            if (records[i][1].substring(0, query.length).toUpperCase() !== query.toUpperCase())
-                  records.splice(i, 1);
+      records = records.filter(colour => {
+            colour[1].substring(0, query.length).toLowerCase() == query)
       })
 }
 
 // Try a new character in query
-function nextCharacter(){
+function nextCharacter() {
     let nextCharacter = randomCharacter();
 
     //Check if there are more words in list
-    if(records.length>1){
+    if(records.length > 1){
       let tempQuery = query + nextCharacter;
 
       //Test if any words match new query
       let remainingWords = false;
+          
       //Check if any words match new query
       for (var i = 0; i < records.length; i++) {
         if (records[i][1].substring(0, tempQuery.length).toUpperCase() === tempQuery.toUpperCase()) {
