@@ -1,14 +1,14 @@
 let query = "";
 let canvasWidth = 1280;
 let canvasHeight = 700;
-var table;
-var records;
+let table;
+let records;
 
 
-var R = 150;
-var G = 150;
-var B = 150;
-var failedAttempts = 0;
+let R = 150;
+let G = 150;
+let B = 150;
+let failedAttempts = 0;
 
 function preload(){
       //Load table
@@ -22,59 +22,53 @@ function setup() {
 
   //Table to Records
   records = table.getArray();
-  console.log("Records length: " + records.length )
 }
 
 function draw() {
-  background(R, G, B);
+      background(R, G, B);
 
-  //Remaining elements
-  fill(255);
-  textSize(20);
-  text("Remaining elements: " + records.length, 50, 350);
+      //Remaining elements
+      fill(255);
+      textSize(20);
+      text("Remaining elements: " + records.length, 50, 350);
 
-  //Query
-  textSize(60);
-  text(query, 50, canvasHeight/2 - 60, canvasWidth, canvasHeight);
-  console.log(query)
+      //Query
+      textSize(60);
+      text(query, 50, canvasHeight/2 - 60, canvasWidth, canvasHeight);
+      console.log(query)
 
-  //Failed attempts
-  textSize(12);
-  text("Failed attempts: " + failedAttempts, 50, 50);
+      //Failed attempts
+      textSize(12);
+      text("Failed attempts: " + failedAttempts, 50, 50);
 
-  //Print all possible outcomes in background whizz
-  for(let i = 0; i<records.length; i++){
-    textSize(10);
-    //fill(random(0, 255), random(0, 255), random(0, 255))
-    text(records[i][1], random(20, canvasWidth- 50), random(20, canvasHeight-20) )
-  }
+      //Print all possible outcomes in background whizz
+      records.forEach(colour => {
+            textSize(10);
+            text(records[i][1], random(20, canvasWidth- 50), random(20, canvasHeight-20) )
+      })
 
-  //Next chatacter
-  if (records.length>1) {
-    nextCharacter();
-  }
-  else {
-    query = records[0][1];
-    //Change background to ink colour
-    R = records[0][4];
-    G = records[0][5];
-    B = records[0][6];
-  }
+        //Next chatacter
+      if (records.length > 1) {
+            nextCharacter();
+      }
+      else {
+            query = records[0][1];
+            //Change background to ink colour
+            R = records[0][4];
+            G = records[0][5];
+            B = records[0][6];
+      }
 }
 
+//Remove words still in record that don't match the query
 function filterWordsRecords(){
-  console.log("RECORDS:")
-  console.log(records);
-  for (let i = 0; i < records.length; i++) {
-    //Remove words that don't match the query
-    console.log("i: " + i)
-    console.log(records)
-    if (records[i][1].substring(0, query.length).toUpperCase() !== query.toUpperCase()) {
-      records.splice(i, 1);
-    }
-  }
+      records.forEach(colour => {
+            if (records[i][1].substring(0, query.length).toUpperCase() !== query.toUpperCase())
+                  records.splice(i, 1);
+      })
 }
 
+// Try a new character in query
 function nextCharacter(){
     let nextCharacter = randomCharacter();
 
@@ -108,42 +102,15 @@ function nextCharacter(){
 }
 
 function randomCharacter(){
-  let characters = [];
-
-  //Norwegian alphabet
-  characters.push("a");
-  characters.push("b");
-  characters.push("c");
-  characters.push("d");
-  characters.push("e");
-  characters.push("f");
-  characters.push("g");
-  characters.push("h");
-  characters.push("j");
-  characters.push("k");
-  characters.push("l");
-  characters.push("m");
-  characters.push("n");
-  characters.push("o");
-  characters.push("p");
-  characters.push("q");
-  characters.push("r");
-  characters.push("s");
-  characters.push("t");
-  characters.push("u");
-  characters.push("v");
-  characters.push("w");
-  characters.push("x");
-  characters.push("y");
-  characters.push("z");
-  characters.push("æ");
-  characters.push("ø");
-  characters.push("å");
-
-  //Special characters
-  characters.push("-");
-  characters.push("&");
-  characters.push(" ");
+  let characters = [
+      "a", "b", "c", "d", "e",
+      "f", "g", "h","i", "j",
+      "k", "l", "m", "n", "o",
+      "p", "q", "r", "s", "t",
+      "u", "v", "w", "z", "y",
+      "z", "æ", "ø", "å", "-",
+      "&", " "
+  ];
 
   //Returns a random element
   return characters[Math.floor(Math.random()*characters.length)];
