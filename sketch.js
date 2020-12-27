@@ -63,7 +63,7 @@ function draw() {
 //Remove words still in record that don't match the query
 function filterWordsRecords(){
       records = records.filter(colour => {
-            colour[1].substring(0, query.length).toLowerCase() == query)
+            colour[1].substring(0, query.length).toLowerCase() == query
       })
 }
 
