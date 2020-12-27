@@ -64,6 +64,8 @@ function draw() {
 function filterWordsRecords(){
       console.log("Records before filter", records);  // DEBUG
       records = records.filter(colour => {
+            console.log("FILTER:", colour[1].substring(0, query.length).toLowerCase())
+            console.log(query.toLowerCase())
             colour[1].substring(0, query.length).toLowerCase() == query.toLowerCase()
       })
       console.log("Records after filter", records);  // DEBUG
