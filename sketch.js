@@ -66,6 +66,7 @@ function filterWordsRecords(){
       records = records.filter(colour => {
             colour[1].substring(0, query.length).toLowerCase() == query.toLowerCase()
       })
+      console.log("Records after filter", records);  // DEBUG
 }
 
 // Try a new character in query
