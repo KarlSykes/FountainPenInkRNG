@@ -30,7 +30,7 @@ function draw() {
       //Remaining elements
       fill(255);
       textSize(20);
-      text("Remaining elements: " + records.length, 50, 350);
+      text("Remaining elements: " + records.length, 50, 390);
 
       //Query
       textSize(60);
